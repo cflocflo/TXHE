@@ -61,12 +61,31 @@ def query_layer(layer_id, name, color, icon="info-sign", max_features=1500):
     except:
         return None
 
-if show_markers:    query_layer(2, "Historical Markers", "blue", "bookmark").add_to(m) if query_layer(2, "Historical Markers", "blue", "bookmark") else None
-if show_nr_props:   query_layer(3, "NR Properties", "purple", "star").add_to(m) if query_layer(3, "NR Properties", "purple", "star") else None
-if show_nr_dists:   query_layer(4, "NR Districts", "orange").add_to(m) if query_layer(4, "NR Districts", "orange") else None
-if show_courthouses:query_layer(6, "County Courthouses", "red", "university").add_to(m) if query_layer(6, "County Courthouses", "red", "university") else None
-if show_museums:    query_layer(1, "Museums", "green", "info-sign").add_to(m) if query_layer(1, "Museums", "green", "info-sign") else None
+# Add layers conditionally - separate if statements to avoid Streamlit parsing bug
+if show_markers:
+    fg_markers = query_layer(2, "Historical Markers", "blue", "bookmark")
+    if fg_markers:
+        fg_markers.add_to(m)
 
+if show_nr_props:
+    fg_props = query_layer(3, "NR Properties", "purple", "star")
+    if fg_props:
+        fg_props.add_to(m)
+
+if show_nr_dists:
+    fg_dists = query_layer(4, "NR Districts", "orange")
+    if fg_dists:
+        fg_dists.add_to(m)
+
+if show_courthouses:
+    fg_courts = query_layer(6, "County Courthouses", "red", "university")
+    if fg_courts:
+        fg_courts.add_to(m)
+
+if show_museums:
+    fg_museums = query_layer(1, "Museums", "green", "info-sign")
+    if fg_museums:
+        fg_museums.add_to(m)
 folium.LayerControl().add_to(m)
 st_folium(m, width=1200, height=650)
 
