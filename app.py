@@ -19,8 +19,8 @@ with st.sidebar:
 
 m = folium.Map(location=[31.0, -99.0], zoom_start=6, tiles="CartoDB positron")
 
-@st.cache_data(ttl=3600)
 def query_layer(layer_id, name, color, icon="info-sign", max_features=1500):
+    # ... rest of function unchanged
     url = f"https://gis.thc.texas.gov/arcgis/rest/services/Historical/FeatureServer/{layer_id}/query"
     params = {
         "where": "1=1",
